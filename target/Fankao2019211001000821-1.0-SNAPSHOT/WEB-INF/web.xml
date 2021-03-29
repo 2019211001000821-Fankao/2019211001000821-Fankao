@@ -15,6 +15,15 @@
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.Fankao.week3.RegisterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConfigDemoServlet</servlet-name>
+        <servlet-class>com.Fankao.week4.demo.ConfigDemoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConfigDemoServlet</servlet-name>
+        <url-pattern>/Config</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>anyName</servlet-name>
         <url-pattern>/Exercise1</url-pattern>
@@ -23,8 +32,28 @@
         <servlet-name>LifeCycleServlet</servlet-name>
         <url-pattern>/life</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+   <!-- <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
+
+    <!--within web-app ,for all Servlet and jsp in this project-->
+    <!--using SQL Server db-->
+    <context-param>
+        <param-name>driver</param-name>
+        <param-value>com.microsoft.sqlserver.jdbc.SQLServerDriver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>url</param-name>
+        <param-value>jdbc:sqlserver://localhost;databaseName=userdb</param-value>
+    </context-param>
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>sa</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>092524</param-value>
+    </context-param>
+
 </web-app>
