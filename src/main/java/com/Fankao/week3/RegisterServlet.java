@@ -60,7 +60,7 @@ public class RegisterServlet extends HttpServlet {
 
 
             try{
-                String sql1="insert into usertable(username,password,email.gender,birthday) values(Fankao,0925,?,man,20000925);" ;
+                String sql1="insert into usertable(username,password,email.gender,birthday) values(Fankao,0925,2451890186@qq.com,man,20000925);" ;
                 PreparedStatement pstmt = con.prepareStatement(sql1);
                 pstmt.setString(1,username);
                 pstmt.setString(2,password);
