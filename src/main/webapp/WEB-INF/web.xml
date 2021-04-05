@@ -11,10 +11,10 @@
         <servlet-name>LifeCycleServlet</servlet-name>
         <servlet-class>com.Fankao.week3.LifeCycleServlet</servlet-class>
     </servlet>
-    <servlet>
+    <!--<servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.Fankao.week3.RegisterServlet</servlet-class>
-    </servlet>
+    </servlet>-->
     <servlet>
         <servlet-name>ConfigDemoServlet</servlet-name>
         <servlet-class>com.Fankao.week4.demo.ConfigDemoServlet</servlet-class>
@@ -31,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>LifeCycleServlet</servlet-name>
         <url-pattern>/life</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.Fankao.week5.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
    <!-- <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
