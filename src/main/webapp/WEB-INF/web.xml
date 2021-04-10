@@ -32,14 +32,14 @@
         <servlet-name>LifeCycleServlet</servlet-name>
         <url-pattern>/life</url-pattern>
     </servlet-mapping>
-    <servlet>
+    <!--<servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.Fankao.week5.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
    <!-- <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
