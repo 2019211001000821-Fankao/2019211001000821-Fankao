@@ -38,7 +38,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/Login</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>-->
    <!-- <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -63,5 +63,8 @@
         <param-name>password</param-name>
         <param-value>092524</param-value>
     </context-param>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file><!--when you run app - first request send to home ... HomeServlet-->
+    </welcome-file-list>
 
 </web-app>

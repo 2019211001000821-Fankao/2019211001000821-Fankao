@@ -1,5 +1,9 @@
 package com.Fankao.week5;
 
+import com.Fankao.dao.UserDao;
+import com.Fankao.model.User;
+import com.example.Fankao2019211001000821.HelloServlet;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -7,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "LoginServlet", value = "/Login")
+@WebServlet(name = "LoginServlet", value = "/login")
 
 public class LoginServlet extends HttpServlet {
     Connection con = null;
@@ -30,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            doPost(request,response);
+            request.getRequestDispatcher("WEB-INF/views/login.jsp").forward(request,response);
     }
 
     @Override
@@ -39,11 +43,32 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         PrintWriter out = response.getWriter();
 
-        String sql = "select * from usertable where username='"+username+"' and password='"+password+"'";
+        //write mvc code
+        //use model and dao
+        UserDao userDao = new UserDao();
+        try {
+           User user = userDao.findByUsernamePassword(con,username,password);
+           if(user!=null) {
+               //valid
+               //set user into request
+               request.setAttribute("user",user);
+               request.getRequestDispatcher("WEB-INF/views/userInfo.jsp").forward(request, response);
+           } else{
+               //invalid
+               request.setAttribute("message","Username or password Error !!!");
+               request.getRequestDispatcher("WEB-INF/views/login.jsp").forward(request,response);
+           }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+        /*String sql = "select * from usertable where username='"+username+"' and password='"+password+"'";
         try {
             ResultSet rs = con.createStatement().executeQuery(sql);
             if (rs.next()) {
-    //              out.println("Login Success!!!");
+     //              out.println("Login Success!!!");
 //                out.println("Welcome" + username);
                 request.setAttribute("id",rs.getInt("id"));
                 request.setAttribute("username",rs.getString("username"));
@@ -59,7 +84,6 @@ public class LoginServlet extends HttpServlet {
       //          out.println("Username or Password Error!!!");
             } catch(SQLException e){
                 e.printStackTrace();
-            }
+            }*/
         }
     }
-
