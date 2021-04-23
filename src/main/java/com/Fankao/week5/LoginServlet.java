@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "LoginServlet", value = "/login")
+@WebServlet(name = "LoginServlet", value ="/login")
 
 public class LoginServlet extends HttpServlet {
     Connection con = null;
@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
+        String username = request.getParameter("username");//need to write <input name="username"> jsp文件中的name与getParameter里的属性要保持一致
         String password = request.getParameter("password");
         PrintWriter out = response.getWriter();
 
@@ -51,7 +51,24 @@ public class LoginServlet extends HttpServlet {
            if(user!=null) {
                //valid
                //set user into request
-               request.setAttribute("user",user);
+               String rememberMe = request.getParameter("rememberMe");
+               if(rememberMe!=null && rememberMe.equals("1")){
+                   Cookie usernameCookie=new Cookie("cUsername",user.getUsername());
+                   Cookie passwordCookie=new Cookie("cPassword",user.getPassword());
+                   Cookie rememberMeCookie=new Cookie("cRememberMe",rememberMe);
+
+                   usernameCookie.setMaxAge(5);
+                   passwordCookie.setMaxAge(5);
+                   rememberMeCookie.setMaxAge(5);
+
+                   response.addCookie(usernameCookie);
+                   response.addCookie(passwordCookie);
+                   response.addCookie(rememberMeCookie);
+               }
+               HttpSession session = request.getSession();
+               System.out.println("session id -->"+session.getId());
+               session.setMaxInactiveInterval(10);
+               session.setAttribute("user",user);
                request.getRequestDispatcher("WEB-INF/views/userInfo.jsp").forward(request, response);
            } else{
                //invalid

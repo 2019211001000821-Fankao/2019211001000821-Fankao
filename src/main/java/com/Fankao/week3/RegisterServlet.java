@@ -8,13 +8,13 @@ import java.io.PrintWriter;
 import java.sql.*;
 
 
-@WebServlet(name="RegisterServlet", value = "/register")
+@WebServlet(name="RegisterServlet", value ="/register")
 public class RegisterServlet extends HttpServlet {
     Connection con = null;//class variable
     @Override
     public  void init() throws ServletException{
 
-        String url =getServletConfig().getServletContext().getInitParameter("url");
+        /*tring url =getServletConfig().getServletContext().getInitParameter("url");
         String driver =getServletConfig().getServletContext().getInitParameter("driver");
         String username =getServletConfig().getServletContext().getInitParameter("username");
         String password =getServletConfig().getServletContext().getInitParameter("password");
@@ -26,6 +26,9 @@ public class RegisterServlet extends HttpServlet {
         }catch (ClassNotFoundException | SQLException e){
             e.printStackTrace();
         }
+
+         */
+     con=(Connection) getServletContext().getAttribute("con");
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -44,7 +47,7 @@ public class RegisterServlet extends HttpServlet {
 
         try {
             Statement st=con.createStatement();
-            String sql = "insert into usertable(username,password,email.gender,birthdate)"+
+            String sql = "insert into usertable(username,password,email,gender,birthdate)"+
                     " values('"+username+"','"+password+"','"+email+"','"+gender+"','"+birthdate+"');";
             System.out.println("sql"+sql);
             int n = st.executeUpdate(sql);
@@ -61,7 +64,7 @@ public class RegisterServlet extends HttpServlet {
             // writer.println("<br>gender"+gender);
             // writer.println("<br>birthdate"+birthdate);
             // writer.close();
-            response.sendRedirect("Login.jsp");
+            response.sendRedirect("login");
         } catch (SQLException e) {
             e.printStackTrace();
         }

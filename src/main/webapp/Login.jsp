@@ -13,11 +13,30 @@
         out.println("<h3>" + request.getAttribute("message") + "</h3>");
     }
 %>
-<form method="post" action="/Login">
-    <label>UserName:<input name="UserName" type="text" maxlength="10" size="30" placeholder="username input" required="required"/>
+<%
+    //read cookies
+        Cookie [] allCookies = request.getCookies();//give all cookies
+        String username="",password="",rememberMeVal="";
+        if(allCookies!=null){
+            for(Cookie c:allCookies ){
+                if(c.getName().equals("cUsername")){
+                    username=c.getValue();
+                }
+                if(c.getName().equals("cPassword")) {
+                    password = c.getValue();
+                }
+                if(c.getName().equals("cRememberMe")) {
+                    rememberMeVal = c.getValue();
+                }
+            }
+        }
+%>
+<form method="post" action="login">
+    <label>UserName:<input name="UserName" type="text" maxlength="10" size="30" placeholder="username input" required="required" value="<%=username%>"/>
     </label><br/>
-    <label>Password:<input name="Password" type="password" maxlength="10" size="30"placeholder="password" required="required"/>
+    <label>Password:<input name="Password" type="password" maxlength="10" size="30"placeholder="password" required="required" value="<%=password%>"/>
     </label><br/>
-    <label><input type="submit" name="Login" value="Login"/></label>
+    <label>RememberMe<input name="rememberMe" type="checkbox" value="1" <%=rememberMeVal.equals("1") ?"checked":""%>checked/></label><br/>
+    <label><input type="submit" name="login" value="login"/></label>
 </form>
 <%@include file="footer.jsp"%>
