@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.Fankao.model.User" %><%--
   Created by IntelliJ IDEA.
   User: dell
   Date: 2021/04/23
