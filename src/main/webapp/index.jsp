@@ -3,14 +3,14 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<form method="get" target="_blank" action="/Search">
+<form method="get" target="_blank" action="/search">
     <input type="text" name="txt" size="30">
     <select name="search">
         <option value="baidu">Baidu</option>
         <option value="bing">Bing</option>
         <option value="google">Google</option>
     </select>
-    <input type="submit" value="search"/>
+    <input type="submit" value="Search"/>
 </form>
 <a href="hello-servlet">Hello Servlet</a>
 <br/>
