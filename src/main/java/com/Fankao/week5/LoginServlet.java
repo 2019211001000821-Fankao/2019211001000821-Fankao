@@ -39,7 +39,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");//need to write <input name="username"> jsp文件中的name与getParameter里的属性要保持一致
+        String username = request.getParameter("username");
+        //need to write <input name="username"> jsp文件中的name与getParameter里的属性要保持一致
         String password = request.getParameter("password");
         PrintWriter out = response.getWriter();
 
