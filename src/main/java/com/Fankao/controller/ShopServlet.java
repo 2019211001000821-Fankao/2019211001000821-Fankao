@@ -1,6 +1,7 @@
 package com.Fankao.controller;
 
 import com.Fankao.dao.ProductDao;
+import com.Fankao.model.Category;
 import com.Fankao.model.Product;
 
 import javax.servlet.*;
@@ -11,26 +12,37 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(name = "ProductListServlet", value = "/admin/productList")
-public class ProductListServlet extends HttpServlet {
+@WebServlet(name = "ShopServlet", value = "/shop")
+public class ShopServlet extends HttpServlet {
     Connection con=null;
     @Override
     public void init() throws ServletException{
         super.init();
         con=(Connection) getServletContext().getAttribute("con");
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        Category category=new Category();
+        List<Category> categoryList=Category.findAllCategory(con);
+        request.setAttribute("categoryList",categoryList);
         ProductDao productDao=new ProductDao();
         try {
-            List<Product> productList=productDao.findAll(con);
+            if (request.getParameter("categoryId")==null){
+                //show all product
+                List<Product> productList=productDao.findAll(con);
             request.setAttribute("productList",productList);
+            }else{
+                int catId=Integer.parseInt(request.getParameter("categoryId"));
+                List<Product> productList =productDao.findByCategoryId(catId,con);
+                request.setAttribute("productList",productList);
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        String path ="/WEB-INF/views/admin/productList.jsp";
+        String path ="/WEB-INF/views/shop.jsp";
         request.getRequestDispatcher(path).forward(request,response);
     }
 
