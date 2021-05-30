@@ -1,5 +1,6 @@
 <%@ page import="com.Fankao.model.Product" %>
 <%@ page import="com.Fankao.model.Category" %>
+<%@ page import="java.sql.SQLException" %>
 <%@include file="../header.jsp" %>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -63,8 +64,13 @@
                             Product p=(Product) pageContext.findAttribute("p");
                             int pid = p.getProductId();
                             java.sql.Connection con=(java.sql.Connection)application.getAttribute("con");
-                                String catName=Category.findByCategoryId(con,pid);
-                            %>
+								String catName= null;
+								try {
+									catName = Category.findByCategoryId(con,pid);
+								} catch (SQLException throwables) {
+									throwables.printStackTrace();
+								}
+							%>
 							<td class="cart_quantity"><%=catName%></td>
 							
 							<td class="cart_total">
