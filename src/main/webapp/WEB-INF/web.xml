@@ -63,8 +63,18 @@
         <param-name>password</param-name>
         <param-value>092524</param-value>
     </context-param>
+    <filter>
+        <filter-name>YourNameFilter</filter-name>
+        <filter-class>com.lab2.YourNameFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>YourNameFilter</filter-name>
+        <url-pattern>/lab2/welcome.jsp</url-pattern>
+        <url-pattern>/lab2/validation.jsp</url-pattern>
+    </filter-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file><!--when you run app - first request send to home ... HomeServlet-->
     </welcome-file-list>
+
 
 </web-app>
