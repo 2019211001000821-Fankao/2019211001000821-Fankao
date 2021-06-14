@@ -38,6 +38,7 @@ public class AccountDetailsServlet extends HttpServlet {
             request.setAttribute("orderList",orderList);
             String path="WEB-INF/views/accountDetails.jsp";
             request.getRequestDispatcher(path).forward(request,response);
+
         }else {
             response.sendRedirect("login");
         }
