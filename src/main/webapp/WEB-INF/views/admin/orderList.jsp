@@ -1,3 +1,7 @@
+<%@ page import="com.Fankao.model.Payment" %>
+<%@ page import="com.Fankao.dao.UserDao" %>
+<%@ page import="com.Fankao.model.Order" %>
+<%@ page import="java.sql.SQLException" %>
 <%@include file="../header.jsp" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
      <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -77,34 +81,42 @@
 						<tbody>
 					
 					<!-- loop_start -->
-					
-						<tr>
-						<td>OID:order Id</td>
-						<td>order Date</td>
+
+					<c:forEach var="o" items="${requestScope.orderList}">
+					<tr>
+						<td>OID:${o.orderId}</td>
+						<td>${o.orderDate}</td>
 						<%
-							com.dabing.model.Order o=(com.dabing.model.Order)pageContext.findAttribute("o");
+							Order o=(Order)pageContext.findAttribute("o");
 							int userId=o.getCustomerId();
 							java.sql.Connection con=(java.sql.Connection)application.getAttribute("con");
-							com.dabing.dao.UserDao userDao=new com.dabing.dao.UserDao();
-							String customerName=userDao.findById(con, userId).getUsername();
-							 %>
-						 <td><%=customerName %></td>
+							UserDao userDao=new UserDao();
+							String customerName= null;
+							try {
+								customerName = userDao.findById(con, userId).getUsername();
+							} catch (SQLException throwables) {
+								throwables.printStackTrace();
+							}
+						%>
+						<td><%=customerName %></td>
 						<td>
-						<p>first Name last Name<p> 
-						<p> address1</p>
-						<p>address2</p>
-						<p>city,state,country-postalCode</p><p>phone</p></td>
+							<p>${o.firstName} ${o.lastName}<p>
+							<p> ${o.address1}</p>
+							<p>${o.address2}</p>
+							<p>${o.city},${o.state},${o.country}-${o.postalCode}</p><p>${o.phone}</p></td>
 						<td class="cart_total">
-						<%
-							int n=o.getPaymentId();
-							String paymentType=com.dabing.model.Payment.findByPaymentId(con,n);
-							 %>
-								<p class="cart_total_price"><%=paymentType %></p>
-							</td>
+							<%
+								int n=o.getPaymentId();
+								String paymentType=Payment.findByPaymentId(con,n);
+							%>
+							<p class="cart_total_price"><%=paymentType %></p>
+						</td>
 						<td><button class="btn btn-default update" id="${o.orderId }">Details</button></td>
-							</tr>
-							<tr>
-							
+					</tr>
+					<tr>
+						</c:forEach>
+
+
 						<!-- loop_end -->
 						
 					</tbody>
